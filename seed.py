@@ -19,12 +19,10 @@ def load_movies(session):
     with open ("seed_data/u.item", "rb") as f:
         reader = csv.reader(f,delimiter='\n')
         for row in reader: 
-            print row
             data = row[0].split("|")
             movie_id = data[0]
             movie_title = data[1]
             movie_title = movie_title.decode("latin-1")
-            print data
             if data[4] != "":
                 imdb_url = data[4]
             else:
@@ -35,7 +33,6 @@ def load_movies(session):
             else:
                 release_date = None 
             new_movie = model.Movie(movie_id = movie_id, movie_title=movie_title, release_date=release_date, imdb_url=imdb_url)      
-
             session.add(new_movie)
         session.commit()
         f.close()
