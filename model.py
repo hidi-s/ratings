@@ -47,14 +47,14 @@ def add_user(session, email, password):
     session.commit()
 
 def add_rating(session, movie_id, rating, user_id):
-    movie = get_movie_by_id(session=session, movie_id = movie_id, user_id=user_id)
+    movie = get_movie_by_id(session=session, movie_id = movie_id)
     new_rating = Ratings(user_id=user_id, movie_id=movie_id, rating=rating)
     movie.ratings.append(new_rating) 
     session.commit()
 
 ### Query functions: GET
 
-def get_movie_by_id(session, movie_id, user_id):
+def get_movie_by_id(session, movie_id):
      movie = session.query(Movie).filter_by(movie_id=movie_id).first()
      return movie
 
@@ -66,23 +66,20 @@ def get_movies_by_user(session, user_id):
         movies.append(movie)
     return movies
 
-def get_movie_by_ids(session, movie_id, user_id):
-    movie = session.query(Movie).filter_by(movie_id=movie_id).first()
-    return movie
+# def get_movie_by_ids(session, movie_id, user_id):
+#     movie = session.query(Movie).filter_by(movie_id=movie_id).first()
+#     return movie
 
 def get_users(session):
     user_objects = session.query(User).all()
-    users = []
-    for userobject in user_objects: 
-        users.append(userobject.id)
-    return users
+    return user_objects #We just changed this. 
 
 ### Query functions: verify 
 
-def verify_user(session, email, password):
+def verify_user(session, email, passw):
     user = session.query(User).filter_by(email=email).first()
-    if user.password == password:
-        return user.id       
+    if user.password == passw:
+        return user       
     else: 
         return None 
 

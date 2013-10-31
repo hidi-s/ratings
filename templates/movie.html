@@ -1,10 +1,11 @@
 {% extends "master.html" %}
 {% block body %}
     <div> 
-        Movie: {{movie.movie_title }}<br>
-
+        Movie: {{ movie.movie_title }}<br>
+        Your Rating: {{ user_rating.rating }}</p> 
+        <!-- movie.rating might be called something else -->
     </div>
-    <form class = "form" id = "addRating" method="POST" action="/movie?movie_id={{movie_id}}">
+    <form class = "form" id = "addRating" method="POST">
         <legend>Add Rating</legend>
         <input type="text" placeholder="Enter your rating..." id = "newRating">
         <br>
